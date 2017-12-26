@@ -1,0 +1,41 @@
+{
+    "name": "calderawp/meta-dev",
+    "description": "Packages for QA/testing Caldera-related PHP",
+    "type": "metapackage",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Josh Pollock",
+            "email": "josh@calderawp.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "require-dev" : {
+        "phpunit/phpunit": "^6.1",
+        "php-coveralls/php-coveralls": "^2.0@dev",
+        "squizlabs/php_codesniffer": "3.*",
+        "friendsofphp/php-cs-fixer": "^2.9",
+        "jakub-onderka/php-parallel-lint": "dev-master",
+        "jakub-onderka/php-console-highlighter": "dev-master"
+    },
+    "scripts" : {
+        "tests" : "composer fixes && composer sniffs && composer lints && phpunit --coverage-clover coverage/clover.xml",
+        "sniffs" : "composer sniff && composer sniff tests",
+        "fixes" : "composer fix && composer fix-tests",
+        "sniff" : "phpcs --standard=PSR2 src/",
+        "sniff-tests" : "phpcs --standard=PSR2 tests/",
+        "fix" : "php-cs-fixer fix src/",
+        "fix-tests" : "php-cs-fixer fix tests/",
+        "lints" : "composer lint && composer lint-tests",
+        "lint" : "parallel-lint ./src  --blame --exclude vendor",
+        "lint-tests" : "parallel-lint ./tests  --blame --exclude vendor "
+    },
+    "config": {
+        "vendor-dir": "vendor",
+        "optimize-autoloader": true,
+        "platform": {
+            "php": "7.0"
+        }
+    }
+}
